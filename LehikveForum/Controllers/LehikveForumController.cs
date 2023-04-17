@@ -14,15 +14,29 @@ namespace LehikveForum.Controllers
             _db = db;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             IEnumerable<Topic> objTopicList = _db.Topics;
             return View(objTopicList);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Topic topic)
+        {
+            if(ModelState.IsValid) {
+                _db.Topics.Add(topic);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(topic);
         }
     }
 }
