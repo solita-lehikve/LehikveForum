@@ -1,7 +1,38 @@
-﻿
+﻿@model IEnumerable<Topic>
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index Discussion Forum</h1>
 
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Topic Header
+            </th>
+            <th>
+                Message count
+            </th>
+            <th>
+                Last message posted
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+            <tr>
+                <td>
+                    @obj.Header
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
