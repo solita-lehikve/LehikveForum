@@ -9,9 +9,9 @@ namespace DiscussionForum.Models
         public int Id { get; set; }
         [Required]
         public string Header { get; set; }
-        [ForeignKey("UsersRefId")]
-        public User User { get; set; }
-        public ICollection<Message> Message { get; set; }
+        //[ForeignKey("UsersRefId")]
+        //public User User { get; set; }
+        public ICollection<Message> Messages { get; set; }
 
     }
 }

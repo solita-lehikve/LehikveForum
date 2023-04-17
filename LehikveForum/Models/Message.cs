@@ -10,10 +10,10 @@ namespace DiscussionForum.Models
         [Required]
         public string Text { get; set; }
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
-        [ForeignKey("TopicRefId")]
+        //[ForeignKey("TopicRefId")]
         public Topic Topic { get; set; }
-        [ForeignKey("UsersRefId")]
-        public User User { get; set; }
+        //[ForeignKey("UsersRefId")]
+        //public User User { get; set; }
 
     }
 }
