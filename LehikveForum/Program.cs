@@ -1,4 +1,4 @@
-using DiscussionForum.Data;
+using LehikveForum.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<DiscussionForumContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString(name: "DiscussionForumContext")
+builder.Services.AddDbContext<LehikveForumContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString(name: "LehikveForumContext")
     ));
 
 var app = builder.Build();

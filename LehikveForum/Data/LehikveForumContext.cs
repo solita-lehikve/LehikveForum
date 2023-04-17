@@ -1,11 +1,11 @@
-﻿using DiscussionForum.Models;
+﻿using LehikveForum.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DiscussionForum.Data
+namespace LehikveForum.Data
 {
-    public class DiscussionForumContext : DbContext
+    public class LehikveForumContext : DbContext
     {
-        public DiscussionForumContext(DbContextOptions<DiscussionForumContext> options)
+        public LehikveForumContext(DbContextOptions<LehikveForumContext> options)
             : base(options)
         {
         }

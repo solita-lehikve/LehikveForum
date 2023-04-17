@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DiscussionForum.Models
+namespace LehikveForum.Models
 {
     public class User
     {
