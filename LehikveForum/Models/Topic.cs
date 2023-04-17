@@ -9,9 +9,8 @@ namespace LehikveForum.Models
         public int Id { get; set; }
         [Required]
         public string Header { get; set; }
-        //[ForeignKey("UsersRefId")]
         //public User User { get; set; }
-        public ICollection<Message> Messages { get; set; }
+        //public ICollection<Message> Messages { get; set; }
 
     }
 }
