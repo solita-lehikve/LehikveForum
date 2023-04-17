@@ -1,9 +1,9 @@
 @model Topic
 
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Edit">
     <div class="border p-3 mt-4">
         <div class="row" pb-2>
-            <h2 class="text-primary">Create Topic</h2>
+            <h2 class="text-primary">Edit Topic</h2>
             <hr />
         </div>
         <div class="mb-3">
@@ -11,7 +11,7 @@
             <input asp-for="Header" class="form-control" />
             <span asp-validation-for="Header" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
         <a asp-controller="DiscussionForum" asp-action="Index" class="btn btn-secondary" style="width:150px">
             Back to List
         </a>
@@ -20,6 +20,6 @@
 
 @section Scripts{
     @{
-            <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
     }
 }
