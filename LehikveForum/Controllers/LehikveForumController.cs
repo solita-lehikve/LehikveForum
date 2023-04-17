@@ -19,5 +19,10 @@ namespace LehikveForum.Controllers
             IEnumerable<Topic> objTopicList = _db.Topics;
             return View(objTopicList);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
