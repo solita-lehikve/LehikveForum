@@ -20,6 +20,10 @@ Created this project to support my path to learn .net. I have selected following
 - Developed and tested using:
    - Windows 10 
    - Chrome browser
+   - SDK VERSION: 7.0.203
+	- .NET CLI: dotnet --list-sdks
+   - Runtime version: 7.0.5
+	- .NET CLI: dotnet --list-runtimes
 
 ### 2. Prerequisite for running the application
 1. Clone/unzip the main (this) project
