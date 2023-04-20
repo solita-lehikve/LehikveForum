@@ -10,8 +10,11 @@ namespace LehikveForum.Models
         [Required]
         public string Text { get; set; }
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+        public int TopicId { get; set; }
         public Topic Topic { get; set; }
-        //public User User { get; set; }
+
+        public int UserId { get; set; } 
+        public User User { get; set; }
 
     }
 }
