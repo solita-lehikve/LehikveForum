@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LehikveForum.Migrations
 {
     [DbContext(typeof(LehikveForumContext))]
-    [Migration("20230417100828_InitialDBCreation")]
-    partial class InitialDBCreation
+    [Migration("20230509105336_UpdateModels")]
+    partial class UpdateModels
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,9 +43,14 @@ namespace LehikveForum.Migrations
                     b.Property<int>("TopicId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TopicId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Messages");
                 });
@@ -62,7 +67,18 @@ namespace LehikveForum.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NumberOfMessages")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("TimeOfLastMessage")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Topics");
                 });
@@ -93,15 +109,41 @@ namespace LehikveForum.Migrations
                     b.HasOne("LehikveForum.Models.Topic", "Topic")
                         .WithMany("Messages")
                         .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("LehikveForum.Models.User", "User")
+                        .WithMany("Message")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Topic");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("LehikveForum.Models.Topic", b =>
+                {
+                    b.HasOne("LehikveForum.Models.User", "User")
+                        .WithMany("Topic")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LehikveForum.Models.Topic", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("LehikveForum.Models.User", b =>
+                {
+                    b.Navigation("Message");
+
+                    b.Navigation("Topic");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,6 +10,17 @@ namespace LehikveForum.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.NoAction;
+            }
+        }
+
         public DbSet<Message> Messages { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<User> Users { get; set; }
