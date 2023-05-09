@@ -7,17 +7,17 @@ namespace LehikveForum.Controllers
 {
     public class LehikveForumController : Controller
     {
-        private readonly LehikveForumContext _db;
+        private readonly LehikveForumContext _context;
 
-        public LehikveForumController(LehikveForumContext db)
+        public LehikveForumController(LehikveForumContext context)
         {
-            _db = db;
+            _context = context;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Topic> objTopicList = _db.Topics;
+            IEnumerable<Topic> objTopicList = _context.Topics;
             return View(objTopicList);
         }
 
@@ -32,8 +32,8 @@ namespace LehikveForum.Controllers
         public IActionResult Create(Topic topic)
         {
             if(ModelState.IsValid) {
-                _db.Topics.Add(topic);
-                _db.SaveChanges();
+                _context.Topics.Add(topic);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(topic);
@@ -47,7 +47,7 @@ namespace LehikveForum.Controllers
             if (id == null || id == 0) {
                 return NotFound();
             }
-            var topicFromDb = _db.Topics.Find(id);
+            var topicFromDb = _context.Topics.Find(id);
             //var topicFromDbFirst = _db.Topics.FirstOrDefault(x => x.Id == id);
             //var topicFromDbSingle = _db.Topics.SingleOrDefault(x => x.Id == id);
 
@@ -65,8 +65,8 @@ namespace LehikveForum.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Topics.Update(topic);
-                _db.SaveChanges();
+                _context.Topics.Update(topic);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(topic);
@@ -79,7 +79,7 @@ namespace LehikveForum.Controllers
             {
                 return NotFound();
             }
-            var topicFromDb = _db.Topics.Find(id);
+            var topicFromDb = _context.Topics.Find(id);
             //var topicFromDbFirst = _db.Topics.FirstOrDefault(x => x.Id == id);
             //var topicFromDbSingle = _db.Topics.SingleOrDefault(x => x.Id == id);
 
@@ -95,15 +95,15 @@ namespace LehikveForum.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
-            var topicFromDb = _db.Topics.Find(id);
+            var topicFromDb = _context.Topics.Find(id);
 
             if (topicFromDb == null)
             {
                 return NotFound();
             }
 
-            _db.Topics.Remove(topicFromDb);
-            _db.SaveChanges();
+            _context.Topics.Remove(topicFromDb);
+            _context.SaveChanges();
             return RedirectToAction("Index");
 
         }
