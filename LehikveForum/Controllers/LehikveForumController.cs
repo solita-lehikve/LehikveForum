@@ -1,7 +1,7 @@
 ﻿using LehikveForum.Data;
 using LehikveForum.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace LehikveForum.Controllers
 {
@@ -17,7 +17,9 @@ namespace LehikveForum.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Topic> objTopicList = _context.Topics;
+
+            IEnumerable<Topic> objTopicList = _context.Topics.Include(p => p.Messages);
+
             return View(objTopicList);
         }
 

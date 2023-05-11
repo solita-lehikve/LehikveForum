@@ -32,17 +32,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var obj in Model)
+        @foreach (var obj in Model)
         {
             <tr>
                 <td>
                     @obj.Header
                 </td>
                 <td>
-                    @obj.NumberOfMessages
+                    @obj.Messages?.Count
                 </td>
                 <td>
-                    @obj.TimeOfLastMessage
+                    @(obj.Messages?
+                    .OrderBy(p => p.CreatedDateTime)
+                    .FirstOrDefault()?
+                    .CreatedDateTime)
+                    
                 </td>
                 <td>
                     <div class="w-75 btn-group" role="group">
