@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LehikveForum.Migrations
 {
     [DbContext(typeof(LehikveForumContext))]
-    [Migration("20230509105336_UpdateModels")]
-    partial class UpdateModels
+    [Migration("20230511115937_InitDB")]
+    partial class InitDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,12 +66,6 @@ namespace LehikveForum.Migrations
                     b.Property<string>("Header")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfMessages")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("TimeOfLastMessage")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");

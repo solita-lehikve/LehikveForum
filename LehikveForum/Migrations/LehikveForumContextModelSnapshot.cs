@@ -64,12 +64,6 @@ namespace LehikveForum.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumberOfMessages")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("TimeOfLastMessage")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
