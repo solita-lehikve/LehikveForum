@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LehikveForum.Controllers
 {
-    public class LehikveForumController : Controller
+    public class TopicPageController : Controller
     {
         private readonly LehikveForumContext _context;
 
-        public LehikveForumController(LehikveForumContext context)
+        public TopicPageController(LehikveForumContext context)
         {
             _context = context;
         }
@@ -18,9 +18,11 @@ namespace LehikveForum.Controllers
         public IActionResult Index()
         {
 
-            IEnumerable<Topic> objTopicList = _context.Topics.Include(p => p.Messages);
+            IEnumerable<Topic> topics = _context.Topics
+                .Include(m => m.Messages)
+                .Include(u => u.User);
 
-            return View(objTopicList);
+            return View(topics);
         }
 
         [HttpGet]
@@ -49,16 +51,17 @@ namespace LehikveForum.Controllers
             if (id == null || id == 0) {
                 return NotFound();
             }
-            var topicFromDb = _context.Topics.Find(id);
-            //var topicFromDbFirst = _db.Topics.FirstOrDefault(x => x.Id == id);
-            //var topicFromDbSingle = _db.Topics.SingleOrDefault(x => x.Id == id);
+            var topic = _context.Topics
+                .Include(p => p.Messages)
+                .Include(e => e.User)
+                .FirstOrDefault(x => x.Id == id);
 
-            if (topicFromDb == null)
+            if (topic == null)
             {
                 return NotFound();
             }
 
-            return View(topicFromDb);
+            return View(topic);
         }
 
         [HttpPost]
@@ -81,30 +84,28 @@ namespace LehikveForum.Controllers
             {
                 return NotFound();
             }
-            var topicFromDb = _context.Topics.Find(id);
-            //var topicFromDbFirst = _db.Topics.FirstOrDefault(x => x.Id == id);
-            //var topicFromDbSingle = _db.Topics.SingleOrDefault(x => x.Id == id);
+            var topic = _context.Topics.Find(id);
 
-            if (topicFromDb == null)
+            if (topic == null)
             {
                 return NotFound();
             }
 
-            return View(topicFromDb);
+            return View(topic);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
-            var topicFromDb = _context.Topics.Find(id);
+            var topic = _context.Topics.Find(id);
 
-            if (topicFromDb == null)
+            if (topic == null)
             {
                 return NotFound();
             }
 
-            _context.Topics.Remove(topicFromDb);
+            _context.Topics.Remove(topic);
             _context.SaveChanges();
             return RedirectToAction("Index");
 
