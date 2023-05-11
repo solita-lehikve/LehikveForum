@@ -31,7 +31,7 @@ namespace LehikveForum.Models
 
                 var topics = new Topic[]
                 {
-                    new Topic{Header = "Suomalaiset nimet", User = users[0]},
+                    new Topic{Header = "Kielet", User = users[0]},
                     new Topic{Header = "Automerkit", User = users[1]}
                 };
 
@@ -44,7 +44,7 @@ namespace LehikveForum.Models
                 context.Messages.AddRange(
                     new Message
                     {
-                        Text = "Kati",
+                        Text = "Suomi",
                         Topic = topics[0],
                         CreatedDateTime = DateTime.Now.AddDays(-1),
                         User = users[0]
@@ -52,24 +52,24 @@ namespace LehikveForum.Models
                     },
                     new Message
                     {
-                        Text = "Topi",
+                        Text = "Ruotsi",
                         Topic = topics[0],
                         CreatedDateTime = DateTime.Now.AddDays(-2),
                         User = users[0]
                     },
                     new Message
                     {
-                        Text = "Ville",
+                        Text = "Englanti",
                         Topic = topics[0],
                         CreatedDateTime = DateTime.Now.AddDays(-3),
-                        User = users[0]
+                        User = users[1]
                     },
                     new Message
                     {
                         Text = "Volkswagen",
                         Topic = topics[1],
                         CreatedDateTime = DateTime.Now.AddDays(-4),
-                        User = users[0]
+                        User = users[1]
                     });
 
                 context.SaveChanges();
