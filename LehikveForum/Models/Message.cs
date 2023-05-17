@@ -9,12 +9,13 @@ namespace LehikveForum.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
-        public string Text { get; set; }
+        [StringLength(200), MinLength(2)]
+        public string Text { get; set; } = null!;
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
         [ForeignKey("TopicId")]
-        public Topic Topic { get; set; }
-        [ForeignKey("UserId")]
-        public User User { get; set; }
+        public Topic Topic { get; set; } = new Topic();
+        [ForeignKey("ApplicationUserId")]
+        public ApplicationUser User { get; set; } = new ApplicationUser();
 
     }
 }
