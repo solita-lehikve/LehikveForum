@@ -11,21 +11,21 @@ namespace LehikveForum.Models
                 serviceProvider.GetRequiredService<DbContextOptions<LehikveForumContext>>()))
             {
 
-                if (context.ApplicationUsers.Any())
+                if (context.Users.Any())
                 {
                     return;
                 }
 
-                var users = new ApplicationUser[]
+                var users = new User[]
                 {
-                    new ApplicationUser{Username = "Topi", Role = "admin"},
-                    new ApplicationUser{Username = "Pekka", Role = "user"}
+                    new User{Username = "Topi", Role = "admin"},
+                    new User{Username = "Pekka", Role = "user"}
                 };
 
 
-                foreach (ApplicationUser u in users)
+                foreach (User u in users)
                 {
-                    context.ApplicationUsers.Add(u);
+                    context.Users.Add(u);
                 }
                 context.SaveChanges();
 

@@ -11,8 +11,9 @@ namespace LehikveForum.Models
         [Required]
         [StringLength(50), MinLength(2)]
         public string Header { get; set; } = null!;
-        [ForeignKey("ApplicationUserId")]
-        public ApplicationUser User { get; set; } = new ApplicationUser();
+        [ForeignKey("UserId")]
+        public User User { get; set; } = new User();
+        public int UserId { get; set; }
         public IList<Message> Messages { get; set; } = new List<Message>();
     }
 }

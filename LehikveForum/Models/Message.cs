@@ -14,8 +14,8 @@ namespace LehikveForum.Models
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
         [ForeignKey("TopicId")]
         public Topic Topic { get; set; } = new Topic();
-        [ForeignKey("ApplicationUserId")]
-        public ApplicationUser User { get; set; } = new ApplicationUser();
+        [ForeignKey("UserId")]
+        public User User { get; set; } = new User();
 
     }
 }
