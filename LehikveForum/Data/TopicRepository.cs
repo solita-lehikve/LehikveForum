@@ -1,4 +1,6 @@
 using LehikveForum.Models;
+using LehikveForum.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System.Collections;
 
 namespace LehikveForum.Data
@@ -13,7 +15,19 @@ namespace LehikveForum.Data
 
         public IList GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Topics
+                .Include(m => m.Messages)
+                .Select(t => new TopicViewModel
+                {
+                    Id = t.Id,
+                    UserId = t.UserId,
+                    Header = t.Header,
+                    TimeOfLastMessage = t.Messages
+                    .OrderBy(p => p.CreatedDateTime)
+                    .Last()
+                    .CreatedDateTime,
+                    NumberOfMessages = t.Messages.Count()
+                }).ToList();
         }
 
         public void Create(Topic topic)

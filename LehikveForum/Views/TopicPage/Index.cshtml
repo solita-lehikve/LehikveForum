@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Topic>
+﻿@using LehikveForum.ViewModels;
+@model IList<TopicViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -39,18 +40,14 @@
                     @obj.Header
                 </td>
                 <td>
-                    @obj.Messages?.Count
+                    @obj.NumberOfMessages
                 </td>
                 <td>
-                    @(obj.Messages?
-                    .OrderBy(p => p.CreatedDateTime)
-                    .FirstOrDefault()?
-                    .CreatedDateTime)
-                    
+                    @obj.TimeOfLastMessage
                 </td>
                 <td>
                     <div class="w-75 btn-group" role="group">
-                        <a asp-controller="TopicPage" asp-action="Edit" asp-route-id="@obj.Id">Edit</a>&nbsp;
+                        <a asp-controller="TopicPage" asp-action="Edit" asp-route-id="@obj.Id)">Edit</a>&nbsp;
                         <a asp-controller="TopicPage" asp-action="Delete" asp-route-id="@obj.Id">Delete</a>
                     </div>
                 </td>

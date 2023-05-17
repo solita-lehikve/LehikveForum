@@ -1,5 +1,6 @@
 ﻿using LehikveForum.Data;
 using LehikveForum.Models;
+using LehikveForum.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,20 +9,18 @@ namespace LehikveForum.Controllers
     public class TopicPageController : Controller
     {
         private readonly LehikveForumContext _context;
+        private readonly ITopicRepository topicRepo;
 
-        public TopicPageController(LehikveForumContext context)
+        public TopicPageController(LehikveForumContext context, ITopicRepository topicRepo)
         {
             _context = context;
+            this.topicRepo = topicRepo; 
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-
-            IEnumerable<Topic> topics = _context.Topics
-                .Include(m => m.Messages)
-                .Include(u => u.User);
-
+            var topics = topicRepo.GetAll();
             return View(topics);
         }
 
@@ -38,8 +37,8 @@ namespace LehikveForum.Controllers
             if(ModelState.IsValid) {
                 _context.Topics.Add(topic);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            return RedirectToAction("Index");
+        }
             return View(topic);
         }
 
@@ -51,10 +50,8 @@ namespace LehikveForum.Controllers
             if (id == null || id == 0) {
                 return NotFound();
             }
-            var topic = _context.Topics
-                .Include(p => p.Messages)
-                .Include(e => e.User)
-                .FirstOrDefault(x => x.Id == id);
+
+            var topic = _context.Topics.Find(id);
 
             if (topic == null)
             {
