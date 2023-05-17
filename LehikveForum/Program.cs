@@ -11,6 +11,8 @@ builder.Services.AddDbContext<LehikveForumContext>(options => options.UseSqlServ
     builder.Configuration.GetConnectionString(name: "LehikveForumContext")
     ));
 
+builder.Services.AddScoped<ITopicRepository, TopicRepository>();
+
 var app = builder.Build();
 
 
