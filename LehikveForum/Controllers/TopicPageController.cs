@@ -3,6 +3,7 @@ using LehikveForum.Models;
 using LehikveForum.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Common;
 
 namespace LehikveForum.Controllers
 {
@@ -19,9 +20,35 @@ namespace LehikveForum.Controllers
 
         [HttpGet]
         public IActionResult Index()
-        {
-            var topics = topicRepo.GetAll();
-            return View(topics);
+        {           
+            var allTopics = topicRepo.GetAll();
+
+            IList<TopicViewModel> topicViewModels = new List<TopicViewModel>();
+
+            foreach (var topic in allTopics)
+            {
+                int numberOfMessages = topic.Messages.Count;
+                DateTime TOLMessage = DateTime.MinValue;
+
+                if (numberOfMessages > 0)
+                {
+                    TOLMessage = topic.Messages
+                        .OrderBy(p => p.CreatedDateTime)
+                        .Last()
+                        .CreatedDateTime;
+                }
+
+                TopicViewModel topicViewModel = new()
+                {
+                    Id = topic.Id,
+                    Header = topic.Header,
+                    NumberOfMessages = numberOfMessages,
+                    TimeOfLastMessage = TOLMessage
+                };
+
+                topicViewModels.Add(topicViewModel);
+            }
+            return View(topicViewModels);
         }
 
         [HttpGet]
@@ -34,12 +61,23 @@ namespace LehikveForum.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Topic topic)
         {
-            if(ModelState.IsValid) {
-                _context.Topics.Add(topic);
-                _context.SaveChanges();
+            var user = _context.Users.First();
+
+            if (user == null)
+            {
+                return View(topic);
+            }
+
+            var newTopic = new Topic
+            {
+                Header = topic.Header,
+                User = user
+            };
+
+            _context.Topics.Add(newTopic);
+            _context.SaveChanges();
+
             return RedirectToAction("Index");
-        }
-            return View(topic);
         }
 
 
@@ -65,13 +103,17 @@ namespace LehikveForum.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Topic topic)
         {
-            if (ModelState.IsValid)
+            var topicNew = _context.Topics.Find(topic.Id);
+
+            if (topicNew == null)
             {
-                _context.Topics.Update(topic);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                return View(topic);
             }
-            return View(topic);
+
+            topicNew.Header = topic.Header;
+            _context.Topics.Update(topicNew);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

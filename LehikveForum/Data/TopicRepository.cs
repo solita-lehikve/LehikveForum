@@ -13,21 +13,11 @@ namespace LehikveForum.Data
             _context = context;
         }
 
-        public IList GetAll()
+        public IList<Topic> GetAll()
         {
             return _context.Topics
                 .Include(m => m.Messages)
-                .Select(t => new TopicViewModel
-                {
-                    Id = t.Id,
-                    UserId = t.UserId,
-                    Header = t.Header,
-                    TimeOfLastMessage = t.Messages
-                    .OrderBy(p => p.CreatedDateTime)
-                    .Last()
-                    .CreatedDateTime,
-                    NumberOfMessages = t.Messages.Count()
-                }).ToList();
+                .ToList();
         }
 
         public void Create(Topic topic)

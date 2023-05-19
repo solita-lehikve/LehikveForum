@@ -8,7 +8,7 @@ namespace LehikveForum.Data
         public void Create(Topic topic);
         public void Edit(Topic topic);
         public void Delete(Topic topic);
-        public IList GetAll();
+        public IList<Topic> GetAll();
         public Topic GetTopic(int id);
          
     }

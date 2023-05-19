@@ -13,7 +13,6 @@ namespace LehikveForum.Models
         public string Header { get; set; } = null!;
         [ForeignKey("UserId")]
         public User User { get; set; } = new User();
-        public int UserId { get; set; }
         public IList<Message> Messages { get; set; } = new List<Message>();
     }
 }
